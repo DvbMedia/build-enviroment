@@ -1,9 +1,9 @@
 #!/usr/bin/make -f
 
-# MACHINE examples: dm500hd dm800se dm7020hd dm8000 dm800 e3hd ebox5000 et4x00 et5x00 et6x00 et9x00 gb800se gb800solo gb800ue gbquad iqonios100hd iqonios300hd ixussone ixusszero mbtwin odinm9 odimm7 tm2t tmsingle tmtwin tmsingle ventonhde ventonhdx vuduo vusolo vuultimo vuuno vusolo2 vuduo2 xp1000 
-MACHINE ?= vuultimo
-# DISTRO examples: openvix openmips openatv openpl opensif
-DISTRO ?= openvix
+# MACHINE examples: dm500hd dm800se dm7020hd dm8000 dm800 e3hd ebox5000 et4x00 et5x00 et6x00 et9x00 gb800se gb800solo gb800ue gbquad iqonios100hd iqonios300hd ixussone ixusszero mbtwin odinm9 odimm7 tm2t tmsingle tmtwin tmsingle ventonhde ventonhdx vuduo vusolo vuultimo vuuno vusolo2 vuduo2 xp1000 spark spark7162 
+MACHINE ?= spark7162
+# DISTRO examples: openvix openmips openatv openpl opensif opensifspark
+DISTRO ?= opensifspark
 
 # Adjust according to the number CPU cores to use for parallel build.
 # Default: Number of processors in /proc/cpuinfo, if present, or 1.
@@ -24,6 +24,7 @@ BBLAYERS ?= \
 	$(CURDIR)/meta-openembedded/meta-oe \
 	$(CURDIR)/openembedded-core/meta \
 	$(CURDIR)/meta-oe-alliance \
+	$(CURDIR)/meta-stlinux \
 
 CONFFILES = \
 	$(TOPDIR)/env.source \
@@ -155,7 +156,7 @@ $(CURDIR)/site.conf:
 	@echo 'SCONF_VERSION = "1"' > $@
 	@echo 'BB_NUMBER_THREADS = "$(BB_NUMBER_THREADS)"' >> $@
 	@echo 'PARALLEL_MAKE = "$(PARALLEL_MAKE)"' >> $@
-	@echo 'BUILD_OPTIMIZATION = "-march=native -O2 -pipe"' >> $@
+	@echo 'BUILD_OPTIMIZATION = "-O2 -pipe"' >> $@
 	@echo 'DL_DIR = "$(DL_DIR)"' >> $@
 
 BBLAYERS_CONF_HASH := $(call hash, \
